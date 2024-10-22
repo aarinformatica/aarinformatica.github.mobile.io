@@ -1,0 +1,209 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #282c34;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+}
+
+.mobile-container {
+    width: 375px;
+    height: 667px;
+    background-color: #333;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #1f1f1f;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5em;
+    animation: neon 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon {
+    from {
+        text-shadow: 0 0 5px #fff, 0 0 10px #ff1b6b, 0 0 15px #ff1b6b, 0 0 20px #ff1b6b;
+    }
+    to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff1b6b, 0 0 40px #ff1b6b, 0 0 50px #ff1b6b;
+    }
+}
+
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.app-button {
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.app-button i {
+    font-size: 2em;
+    margin-bottom: 5px;
+    transition: color 0.3s;
+}
+
+.app-button:nth-child(1) i { color: #4CAF50; }
+$app-button:nth-child(2) i { color: #FFC107; }
+.app-button:nth-child(3) i { color: #2196F3; }
+.app-button:nth-child(4) i { color: #E91E63; }
+.app-button:nth-child(5) i { color: #9C27B0; }
+
+.app-button:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
+footer {
+    background-color: #1f1f1f;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.footer-button i {
+    transition: color 0.3s;
+}
+
+.footer-button:hover {
+    color: #ffcc00;
+    transform: scale(1.2);
+}
+
+.player-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    background-color: #222;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    z-index: 1000;
+}
+
+.player-modal .player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #555;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #777;
+}
+
+#spectrum {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    gap: 3px;
+    margin-top: 20px;
+}
+
+.bar {
+    width: 5px;
+    background: linear-gradient(45deg, #ff1b6b, #45caff);
+    animation: grow 1s ease infinite;
+}
+
+@keyframes grow {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(2);
+    }
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}
+
+#open-music {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#open-music:hover {
+    background-color: #45a049;
+}
