@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" >
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="./style.css">
@@ -7,24 +7,71 @@
 </head>
 <body>
 <!-- partial:index.partial.html -->
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Layout Mobile</title>
+    <title>Simulador de Smartphone</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <div class="mobile-container">
+    <div class="iphone-container">
         <header>
             <h1>Aplicativos</h1>
         </header>
         <main>
-            <div class="app-grid">
-                <button class="app-button" onclick="openApp('phone')"><i class="fas fa-phone-alt"></i></button>
+            <div class="app-grid" id="appGrid">
+                <button class="app-button" onclick="openPhoneApp()"><i class="fas fa-phone-alt"></i></button>
                 <button class="app-button" onclick="openApp('message')"><i class="fas fa-sms"></i></button>
                 <button class="app-button" onclick="openApp('camera')"><i class="fas fa-camera"></i></button>
                 <button class="app-button" onclick="openMusicPlayer()"><i class="fas fa-music"></i></button>
                 <button class="app-button" onclick="openApp('settings')"><i class="fas fa-cogs"></i></button>
+                <button class="app-button" onclick="openApp('whatsapp')"><i class="fab fa-whatsapp"></i></button>
+            </div>
+            <div id="phoneApp" class="app" style="display: none; flex-direction: column; align-items: center; padding: 20px;">
+                <input type="text" id="phoneInput" readonly style="width: 80%; padding: 10px; font-size: 1.5em; text-align: center; margin-bottom: 20px;">
+                <div class="phone-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <button class="phone-button" onclick="dialNumber('1')">1</button>
+                    <button class="phone-button" onclick="dialNumber('2')">2</button>
+                    <button class="phone-button" onclick="dialNumber('3')">3</button>
+                    <button class="phone-button" onclick="dialNumber('4')">4</button>
+                    <button class="phone-button" onclick="dialNumber('5')">5</button>
+                    <button class="phone-button" onclick="dialNumber('6')">6</button>
+                    <button class="phone-button" onclick="dialNumber('7')">7</button>
+                    <button class="phone-button" onclick="dialNumber('8')">8</button>
+                    <button class="phone-button" onclick="dialNumber('9')">9</button>
+                    <button class="phone-button" onclick="clearInput()">*</button>
+                    <button class="phone-button" onclick="dialNumber('0')">0</button>
+                    <button class="phone-button" onclick="clearInput()">#</button>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="call-button" onclick="callNumber()"><i class="fas fa-phone-alt"></i> Ligar</button>
+                    <button class="close-button" onclick="closePhoneApp()">Fechar</button>
+                    <button class="clear-button" onclick="clearInput()">Limpar</button>
+                </div>
+            </div>
+            <div id="musicPlayer" class="app" style="display: none; flex-direction: column; align-items: center; padding: 20px;">
+                <button class="close-button" onclick="closeMusicPlayer()">Voltar</button><br>
+                <input type="file" id="audioFiles" accept="audio/*" multiple style="margin-bottom: 20px;">
+                <div id="audioInfo" style="text-align: center; margin-bottom: 20px;">
+                    <p id="trackTitle">Título da Música: -</p>
+                    <p id="artistName">Artista: -</p>
+                    <p id="albumName">Álbum: -</p>
+                    <p id="currentTime">Tempo Atual: 0:00</p>
+                    <p id="totalTime">Duração Total: 0:00</p>
+                </div>
+                <audio id="audio"></audio>
+                <div class="controls">
+                    <button class="play" onclick="playAudio()"><i class="fas fa-play"></i></button>
+                    <button class="pause" onclick="pauseAudio()"><i class="fas fa-pause"></i></button>
+                    <button class="stop" onclick="stopAudio()"><i class="fas fa-stop"></i></button>
+                    <button class="previous" onclick="previousAudio()"><i class="fas fa-backward"></i></button>
+                    <button class="next" onclick="nextAudio()"><i class="fas fa-forward"></i></button>
+                    <button class="repeat" id="repeatButton" onclick="toggleRepeat()"><i class="fas fa-redo"></i></button>
+                    <button class="shuffle" id="shuffleButton" onclick="toggleShuffle()"><i class="fas fa-random"></i></button>
+                    <input type="range" id="volumeControl" min="0" max="1" step="0.01" onchange="setVolume()"> Volume
+                </div>
+                <div id="spectrum" style="width: 100%; height: 100px; background-color: #000; margin-top: 20px;"></div>
             </div>
         </main>
         <footer>
@@ -33,38 +80,10 @@
             <button class="footer-button" onclick="showSettings()"><i class="fas fa-cog"></i></button>
         </footer>
     </div>
-    
-    <div class="modal-overlay"></div>
-    <div class="player-modal">
-        <div class="player">
-            <h2>Player de Música</h2>
-            <input type="file" id="audioFiles" accept="audio/*" multiple onchange="loadAudioFiles()">
-            <div id="audioInfo">
-                <p id="trackTitle">Título da Música: -</p>
-                <p id="artistName">Artista: -</p>
-                <p id="albumName">Álbum: -</p>
-                <p id="currentTime">Tempo Atual: 0:00</p>
-                <p id="totalTime">Duração Total: 0:00</p>
-            </div>
-            <div class="controls">
-                <button onclick="playAudio()"><i class="fas fa-play"></i> Play</button>
-                <button onclick="pauseAudio()"><i class="fas fa-pause"></i> Pause</button>
-                <button onclick="stopAudio()"><i class="fas fa-stop"></i> Stop</button>
-                <button onclick="previousAudio()"><i class="fas fa-backward"></i> Anterior</button>
-                <button onclick="nextAudio()"><i class="fas fa-forward"></i> Próxima</button>
-                <button onclick="toggleRepeat()"><i class="fas fa-redo"></i> Repetir</button>
-                <button onclick="toggleShuffle()"><i class="fas fa-random"></i> Aleatório</button>
-                <input type="range" id="volumeControl" min="0" max="1" step="0.01" onchange="setVolume()">
-                <i class="fas fa-volume-up"></i> Volume
-            </div>
-            <div id="spectrum"></div>
-            <button onclick="closeMusicPlayer()">Fechar</button>
-        </div>
-    </div>
-
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="script.js"></script>
 </body>
+</html>
 <!-- partial -->
   <script  src="./script.js"></script>
 
