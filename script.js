@@ -9,25 +9,47 @@ function openApp(app) {
 }
 
 function showHome() {
-    openApp('home');
+    document.getElementById('appGrid').style.display = 'grid';
+    document.getElementById('phoneApp').style.display = 'none';
+    document.getElementById('musicPlayer').style.display = 'none';
 }
 
-function showMessages() {
-    openApp('message');
+function openPhoneApp() {
+    document.getElementById('appGrid').style.display = 'none';
+    document.getElementById('phoneApp').style.display = 'flex';
 }
 
-function showSettings() {
-    openApp('settings');
+function closePhoneApp() {
+    document.getElementById('appGrid').style.display = 'grid';
+    document.getElementById('phoneApp').style.display = 'none';
+}
+
+function dialNumber(number) {
+    const phoneInput = document.getElementById('phoneInput');
+    phoneInput.value += number;
+}
+
+function callNumber() {
+    const phoneInput = document.getElementById('phoneInput').value;
+    if (/^\d+$/.test(phoneInput)) {  // Verifica se o número é válido
+        window.location.href = `tel:${phoneInput}`;
+    } else {
+        alert('Por favor, insira um número de telefone válido.');
+    }
+}
+
+function clearInput() {
+    document.getElementById('phoneInput').value = '';
 }
 
 function openMusicPlayer() {
-    document.querySelector('.modal-overlay').style.display = 'block';
-    document.querySelector('.player-modal').style.display = 'flex';
+    document.getElementById('appGrid').style.display = 'none';
+    document.getElementById('musicPlayer').style.display = 'flex';
 }
 
 function closeMusicPlayer() {
-    document.querySelector('.modal-overlay').style.display = 'none';
-    document.querySelector('.player-modal').style.display = 'none';
+    document.getElementById('appGrid').style.display = 'grid';
+    document.getElementById('musicPlayer').style.display = 'none';
 }
 
 let audioContext;
@@ -40,6 +62,8 @@ let audioFiles = [];
 let repeatAll = false;
 let repeatOne = false;
 let shuffle = false;
+
+document.getElementById('audioFiles').addEventListener('change', loadAudioFiles);
 
 function loadAudioFiles() {
     const files = document.getElementById('audioFiles').files;
@@ -146,15 +170,17 @@ function toggleRepeat() {
     if (!repeatAll && !repeatOne) {
         repeatAll = true;
         repeatOne = false;
-        document.getElementById('repeatButton').innerHTML = '<i class="fas fa-redo"></i> Repetir Tudo';
+        document.getElementById('repeatButton').classList.add('active-all');
+        document.getElementById('repeatButton').classList.remove('active-one');
     } else if (repeatAll && !repeatOne) {
         repeatAll = false;
         repeatOne = true;
-        document.getElementById('repeatButton').innerHTML = '<i class="fas fa-redo"></i> Repetir Um';
+        document.getElementById('repeatButton').classList.add('active-one');
+        document.getElementById('repeatButton').classList.remove('active-all');
     } else {
         repeatAll = false;
         repeatOne = false;
-        document.getElementById('repeatButton').innerHTML = '<i class="fas fa-redo"></i> Repetir';
+        document.getElementById('repeatButton').classList.remove('active-all', 'active-one');
     }
 }
 
